@@ -23,7 +23,6 @@ const typeColors = {
   fairy: "#D685AD",
 };
 
-// Navigation Bar Component
 function NavBar() {
   return (
     <nav className="NavBar">
