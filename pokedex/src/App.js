@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link, useParams } from "react-router-dom";
 import "./App.css";
 
 // Mapping of Pokémon types to background colors
@@ -32,19 +33,15 @@ function App() {
   const [filteredMoves, setFilteredMoves] = useState([]);
   const [showMoves, setShowMoves] = useState(false);
 
-  // Fetch Pokémon data from the API
   useEffect(() => {
     const fetchPokemonData = async () => {
       try {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
         const data = await response.json();
-
-        // Fetch details for each Pokémon
         const promises = data.results.map(async (pokemon) => {
           const res = await fetch(pokemon.url);
           return res.json();
         });
-
         const results = await Promise.all(promises);
         setPokemonData(results);
         setFilteredPokemon(results);
@@ -56,19 +53,15 @@ function App() {
     fetchPokemonData();
   }, []);
 
-  // Fetch Pokémon moves data from the API
   useEffect(() => {
     const fetchMoveData = async () => {
       try {
         const response = await fetch("https://pokeapi.co/api/v2/move?limit=150");
         const data = await response.json();
-
-        // Fetch details for each move
         const promises = data.results.map(async (move) => {
           const res = await fetch(move.url);
           return res.json();
         });
-
         const results = await Promise.all(promises);
         setMoveData(results);
         setFilteredMoves(results);
@@ -80,7 +73,6 @@ function App() {
     fetchMoveData();
   }, []);
 
-  // Filter Pokémon based on the search term
   useEffect(() => {
     setFilteredPokemon(
       pokemonData.filter((pokemon) =>
@@ -89,7 +81,6 @@ function App() {
     );
   }, [searchPokemon, pokemonData]);
 
-  // Filter Moves based on the search term
   useEffect(() => {
     setFilteredMoves(
       moveData.filter((move) =>
@@ -99,62 +90,134 @@ function App() {
   }, [searchMove, moveData]);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>{showMoves ? "Moves" : "Pokédex"}</h1>
-        <input
-          type="text"
-          placeholder={showMoves ? "Search Moves" : "Search Pokémon"}
-          value={showMoves ? searchMove : searchPokemon}
-          onChange={(e) =>
-            showMoves
-              ? setSearchMove(e.target.value)
-              : setSearchPokemon(e.target.value)
-          }
-        />
-        <button onClick={() => setShowMoves(!showMoves)}>
-          {showMoves ? "View Pokémon" : "View Moves"}
-        </button>
-      </header>
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <h1>{showMoves ? "Moves" : "Pokédex"}</h1>
+          <input
+            type="text"
+            placeholder={showMoves ? "Search Moves" : "Search Pokémon"}
+            value={showMoves ? searchMove : searchPokemon}
+            onChange={(e) =>
+              showMoves
+                ? setSearchMove(e.target.value)
+                : setSearchPokemon(e.target.value)
+            }
+          />
+          <button onClick={() => setShowMoves(!showMoves)}>
+            {showMoves ? "View Pokémon" : "View Moves"}
+          </button>
+        </header>
 
-      <div className="data-grid">
-        {showMoves
-          ? filteredMoves.map((move, index) => {
-              const moveType = move.type.name; // Get the move's type
-              const backgroundColor = typeColors[moveType] || "#FFFFFF"; // Default to white if type is not found
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="data-grid">
+                {showMoves
+                  ? filteredMoves.map((move, index) => {
+                      const moveType = move.type.name;
+                      const backgroundColor = typeColors[moveType] || "#FFFFFF";
 
-              return (
-                <div
-                  key={index}
-                  className="data-card"
-                  style={{ backgroundColor }}
-                >
-                  <h2>{move.name.charAt(0).toUpperCase() + move.name.slice(1)}</h2>
-                  <p>Type: {move.type.name.charAt(0).toUpperCase() + move.type.name.slice(1)}</p>
-                  <p>Power: {move.power || "N/A"}</p>
-                  <p>Accuracy: {move.accuracy || "N/A"}</p>
-                  <p>PP: {move.pp || "N/A"}</p>
-                </div>
-              );
-            })
-          : filteredPokemon.map((pokemon) => {
-              const mainType = pokemon.types[0].type.name; // Get the Pokémon's main type
-              const backgroundColor = typeColors[mainType] || "#FFFFFF"; // Default to white if type is not found
+                      return (
+                        <Link to={`/move/${move.name}`} key={index}>
+                          <div
+                            className="data-card"
+                            style={{ backgroundColor }}
+                          >
+                            <h2>{move.name}</h2>
+                            <p>Type: {move.type.name}</p>
+                            <p>Power: {move.power || "N/A"}</p>
+                            <p>Accuracy: {move.accuracy || "N/A"}</p>
+                          </div>
+                        </Link>
+                      );
+                    })
+                  : filteredPokemon.map((pokemon) => {
+                      const mainType = pokemon.types[0].type.name;
+                      const backgroundColor = typeColors[mainType] || "#FFFFFF";
 
-              return (
-                <div
-                  key={pokemon.id}
-                  className="data-card"
-                  style={{ backgroundColor }}
-                >
-                  <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-                  <h2>
-                    {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-                  </h2>
-                </div>
-              );
-            })}
+                      return (
+                        <Link to={`/pokemon/${pokemon.name}`} key={pokemon.id}>
+                          <div
+                            className="data-card"
+                            style={{ backgroundColor }}
+                          >
+                            <img
+                              src={pokemon.sprites.front_default}
+                              alt={pokemon.name}
+                            />
+                            <h2>{pokemon.name}</h2>
+                          </div>
+                        </Link>
+                      );
+                    })}
+              </div>
+            }
+          />
+          <Route path="/pokemon/:name" element={<PokemonDetails />} />
+          <Route path="/move/:name" element={<MoveDetails />} />
+        </Routes>
       </div>
+    </Router>
+  );
+}
+
+function PokemonDetails() {
+  const { name } = useParams();
+  const [pokemon, setPokemon] = useState(null);
+
+  useEffect(() => {
+    const fetchPokemon = async () => {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+      const data = await response.json();
+      setPokemon(data);
+    };
+    fetchPokemon();
+  }, [name]);
+
+  if (!pokemon) return <p>Loading...</p>;
+
+  return (
+    <div className="details">
+      <h1>{pokemon.name}</h1>
+      <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+      <p>Height: {pokemon.height}</p>
+      <p>Weight: {pokemon.weight}</p>
+      <p>Base Experience: {pokemon.base_experience}</p>
+      <h2>Abilities:</h2>
+      <ul>
+        {pokemon.abilities.map((ability) => (
+          <li key={ability.ability.name}>{ability.ability.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function MoveDetails() {
+  const { name } = useParams();
+  const [move, setMove] = useState(null);
+
+  useEffect(() => {
+    const fetchMove = async () => {
+      const response = await fetch(`https://pokeapi.co/api/v2/move/${name}`);
+      const data = await response.json();
+      setMove(data);
+    };
+    fetchMove();
+  }, [name]);
+
+  if (!move) return <p>Loading...</p>;
+
+  return (
+    <div className="details">
+      <h1>{move.name}</h1>
+      <p>Type: {move.type.name}</p>
+      <p>Power: {move.power || "N/A"}</p>
+      <p>Accuracy: {move.accuracy || "N/A"}</p>
+      <p>PP: {move.pp}</p>
+      <p>Effect: {move.effect_entries[0]?.short_effect || "N/A"}</p>
     </div>
   );
 }
