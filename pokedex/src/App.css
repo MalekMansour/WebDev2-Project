@@ -52,13 +52,6 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.data-card img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-
 .data-card h2 {
   font-size: 18px;
   margin: 10px 0;
@@ -66,5 +59,6 @@
 
 .data-card p {
   font-size: 14px;
-  color: #666;
+  color: #fff;
+  margin: 5px 0;
 }
