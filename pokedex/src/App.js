@@ -62,8 +62,16 @@ function App() {
       try {
         const response = await fetch("https://pokeapi.co/api/v2/move?limit=150");
         const data = await response.json();
-        setMoveData(data.results);
-        setFilteredMoves(data.results);
+
+        // Fetch details for each move
+        const promises = data.results.map(async (move) => {
+          const res = await fetch(move.url);
+          return res.json();
+        });
+
+        const results = await Promise.all(promises);
+        setMoveData(results);
+        setFilteredMoves(results);
       } catch (error) {
         console.error("Error fetching move data:", error);
       }
@@ -111,12 +119,24 @@ function App() {
 
       <div className="data-grid">
         {showMoves
-          ? filteredMoves.map((move, index) => (
-              <div key={index} className="data-card">
-                <h2>{move.name.charAt(0).toUpperCase() + move.name.slice(1)}</h2>
-                <p>More move details can go here.</p>
-              </div>
-            ))
+          ? filteredMoves.map((move, index) => {
+              const moveType = move.type.name; // Get the move's type
+              const backgroundColor = typeColors[moveType] || "#FFFFFF"; // Default to white if type is not found
+
+              return (
+                <div
+                  key={index}
+                  className="data-card"
+                  style={{ backgroundColor }}
+                >
+                  <h2>{move.name.charAt(0).toUpperCase() + move.name.slice(1)}</h2>
+                  <p>Type: {move.type.name.charAt(0).toUpperCase() + move.type.name.slice(1)}</p>
+                  <p>Power: {move.power || "N/A"}</p>
+                  <p>Accuracy: {move.accuracy || "N/A"}</p>
+                  <p>PP: {move.pp || "N/A"}</p>
+                </div>
+              );
+            })
           : filteredPokemon.map((pokemon) => {
               const mainType = pokemon.types[0].type.name; // Get the Pokémon's main type
               const backgroundColor = typeColors[mainType] || "#FFFFFF"; // Default to white if type is not found
