@@ -1,5 +1,3 @@
-/* src/App.css */
-
 .App {
   text-align: center;
 }
@@ -11,9 +9,12 @@
 }
 
 input {
-  padding: 8px;
+  padding: 10px;
   margin-top: 20px;
-  width: 200px;
+  width: 250px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 .pokemon-grid {
@@ -24,18 +25,25 @@ input {
 }
 
 .pokemon-card {
-  background-color: #f2f2f2;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.pokemon-card h2 {
-  text-transform: capitalize;
+  transition: transform 0.2s ease-in-out;
+  color: white;
 }
 
 .pokemon-card img {
   width: 100px;
   height: 100px;
+}
+
+.pokemon-card h2 {
+  text-transform: capitalize;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.pokemon-card:hover {
+  transform: scale(1.1); /* Add a hover effect */
 }
