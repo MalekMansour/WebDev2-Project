@@ -1,8 +1,32 @@
-.App {
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+button {
+  margin: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Pokedex Styles */
+.Pokedex {
   text-align: center;
 }
 
-.App-header {
+.Pokedex-header {
   background-color: #282c34;
   padding: 20px;
   color: white;
@@ -29,8 +53,14 @@ input {
   padding: 20px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease-in-out;
   color: white;
+  position: relative;
+  cursor: pointer;
+}
+
+.pokemon-card:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
 }
 
 .pokemon-card img {
@@ -39,11 +69,19 @@ input {
 }
 
 .pokemon-card h2 {
-  text-transform: capitalize;
   margin-top: 10px;
   font-size: 16px;
 }
 
-.pokemon-card:hover {
-  transform: scale(1.1); /* Add a hover effect */
+.pokemon-id {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-weight: bold;
+}
+
+/* Pokemon Details Styles */
+.PokemonDetails {
+  text-align: center;
+  padding: 20px;
 }
