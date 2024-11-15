@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
 
-// Mapping of Pokémon types to background colors
 const typeColors = {
   normal: "#A8A77A",
   fire: "#EE8130",
@@ -23,19 +23,19 @@ const typeColors = {
   fairy: "#D685AD",
 };
 
-function App() {
+// Pokedex Page
+function Pokedex() {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPokemon, setFilteredPokemon] = useState([]);
+  const navigate = useNavigate();
 
-  // Fetch Pokémon data from the API
   useEffect(() => {
     const fetchPokemonData = async () => {
       try {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
         const data = await response.json();
 
-        // Fetch details for each Pokémon
         const promises = data.results.map(async (pokemon) => {
           const res = await fetch(pokemon.url);
           return res.json();
@@ -52,7 +52,6 @@ function App() {
     fetchPokemonData();
   }, []);
 
-  // Filter Pokémon based on the search term
   useEffect(() => {
     setFilteredPokemon(
       pokemonData.filter((pokemon) =>
@@ -62,8 +61,8 @@ function App() {
   }, [searchTerm, pokemonData]);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="Pokedex">
+      <header className="Pokedex-header">
         <h1>Pokédex</h1>
         <input
           type="text"
@@ -75,15 +74,17 @@ function App() {
 
       <div className="pokemon-grid">
         {filteredPokemon.map((pokemon) => {
-          const mainType = pokemon.types[0].type.name; // Get the Pokémon's main type
-          const backgroundColor = typeColors[mainType] || "#FFFFFF"; // Default to white if type is not found
+          const mainType = pokemon.types[0].type.name;
+          const backgroundColor = typeColors[mainType] || "#FFFFFF";
 
           return (
             <div
               key={pokemon.id}
               className="pokemon-card"
               style={{ backgroundColor }}
+              onClick={() => navigate(`/pokemon/${pokemon.id}`)}
             >
+              <span className="pokemon-id">#{pokemon.id}</span>
               <img src={pokemon.sprites.front_default} alt={pokemon.name} />
               <h2>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
             </div>
@@ -91,6 +92,63 @@ function App() {
         })}
       </div>
     </div>
+  );
+}
+
+// Pokemon Details Page
+function PokemonDetails() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [pokemon, setPokemon] = useState(null);
+
+  useEffect(() => {
+    const fetchPokemon = async () => {
+      try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        const data = await response.json();
+        setPokemon(data);
+      } catch (error) {
+        console.error("Error fetching Pokémon details:", error);
+      }
+    };
+
+    fetchPokemon();
+  }, [id]);
+
+  if (!pokemon) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="PokemonDetails">
+      <button onClick={() => navigate("/")}>Back to Pokédex</button>
+      <h1>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>
+      <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+      <p><strong>ID:</strong> #{pokemon.id}</p>
+      <p><strong>Type(s):</strong> {pokemon.types.map((t) => t.type.name).join(", ")}</p>
+      <p><strong>Height:</strong> {pokemon.height}</p>
+      <p><strong>Weight:</strong> {pokemon.weight}</p>
+      <p><strong>Abilities:</strong> {pokemon.abilities.map((a) => a.ability.name).join(", ")}</p>
+      <p><strong>Base Stats:</strong></p>
+      <ul>
+        {pokemon.stats.map((stat) => (
+          <li key={stat.stat.name}>
+            {stat.stat.name}: {stat.base_stat}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Pokedex />} />
+        <Route path="/pokemon/:id" element={<PokemonDetails />} />
+      </Routes>
+    </Router>
   );
 }
 
