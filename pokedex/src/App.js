@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
 
 const typeColors = {
@@ -22,6 +22,17 @@ const typeColors = {
   steel: "#B7B7CE",
   fairy: "#D685AD",
 };
+
+// Navigation Bar Component
+function NavBar() {
+  return (
+    <nav className="NavBar">
+      <Link to="/">Pokémon</Link>
+      <Link to="/moves">Moves</Link>
+      <Link to="/wiki">Wiki</Link>
+    </nav>
+  );
+}
 
 // Pokedex Page
 function Pokedex() {
@@ -95,45 +106,131 @@ function Pokedex() {
   );
 }
 
-// Pokemon Details Page
-function PokemonDetails() {
-  const { id } = useParams();
+// Moves Page
+function Moves() {
+  const [moves, setMoves] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredMoves, setFilteredMoves] = useState([]);
   const navigate = useNavigate();
-  const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
-    const fetchPokemon = async () => {
+    const fetchMoves = async () => {
       try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        const response = await fetch("https://pokeapi.co/api/v2/move?limit=150");
         const data = await response.json();
-        setPokemon(data);
+
+        const promises = data.results.map(async (move) => {
+          const res = await fetch(move.url);
+          return res.json();
+        });
+
+        const results = await Promise.all(promises);
+        setMoves(results);
+        setFilteredMoves(results);
       } catch (error) {
-        console.error("Error fetching Pokémon details:", error);
+        console.error("Error fetching moves:", error);
       }
     };
 
-    fetchPokemon();
+    fetchMoves();
+  }, []);
+
+  useEffect(() => {
+    setFilteredMoves(
+      moves.filter((move) =>
+        move.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [searchTerm, moves]);
+
+  return (
+    <div className="Moves">
+      <header className="Moves-header">
+        <h1>Pokémon Moves</h1>
+        <input
+          type="text"
+          placeholder="Search Moves"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </header>
+
+      <div className="pokemon-grid">
+        {filteredMoves.map((move) => {
+          const mainType = move.type?.name || "normal";
+          const backgroundColor = typeColors[mainType] || "#FFFFFF";
+
+          return (
+            <div
+              key={move.id}
+              className="pokemon-card"
+              style={{ backgroundColor }}
+              onClick={() => navigate(`/move/${move.id}`)}
+            >
+              <span className="pokemon-id">#{move.id}</span>
+              <h2>{move.name.charAt(0).toUpperCase() + move.name.slice(1)}</h2>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// Move Details Page
+function MoveDetails() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [move, setMove] = useState(null);
+
+  useEffect(() => {
+    const fetchMove = async () => {
+      try {
+        const response = await fetch(`https://pokeapi.co/api/v2/move/${id}`);
+        const data = await response.json();
+        setMove(data);
+      } catch (error) {
+        console.error("Error fetching move details:", error);
+      }
+    };
+
+    fetchMove();
   }, [id]);
 
-  if (!pokemon) {
+  if (!move) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="PokemonDetails">
-      <button onClick={() => navigate("/")}>Back to Pokédex</button>
-      <h1>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>
-      <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-      <p><strong>ID:</strong> #{pokemon.id}</p>
-      <p><strong>Type(s):</strong> {pokemon.types.map((t) => t.type.name).join(", ")}</p>
-      <p><strong>Height:</strong> {pokemon.height}</p>
-      <p><strong>Weight:</strong> {pokemon.weight}</p>
-      <p><strong>Abilities:</strong> {pokemon.abilities.map((a) => a.ability.name).join(", ")}</p>
-      <p><strong>Base Stats:</strong></p>
+    <div className="MoveDetails">
+      <button onClick={() => navigate("/moves")}>Back to Moves</button>
+      <h1>{move.name.charAt(0).toUpperCase() + move.name.slice(1)}</h1>
+      <p><strong>Type:</strong> {move.type?.name || "Unknown"}</p>
+      <p><strong>Power:</strong> {move.power || "N/A"}</p>
+      <p><strong>PP:</strong> {move.pp}</p>
+      <p><strong>Accuracy:</strong> {move.accuracy || "N/A"}</p>
+      <p><strong>Description:</strong> {move.effect_entries[0]?.short_effect || "N/A"}</p>
+    </div>
+  );
+}
+
+// Wiki Page
+function Wiki() {
+  const links = [
+    { name: "Bulbapedia", url: "https://bulbapedia.bulbagarden.net/" },
+    { name: "Pokémon Database", url: "https://pokemondb.net/" },
+    { name: "Pokémon Wiki", url: "https://pokemon.fandom.com/" },
+  ];
+
+  return (
+    <div className="Wiki">
+      <h1>Pokémon Wiki Links</h1>
       <ul>
-        {pokemon.stats.map((stat) => (
-          <li key={stat.stat.name}>
-            {stat.stat.name}: {stat.base_stat}
+        {links.map((link) => (
+          <li key={link.name}>
+            <a href={link.url} target="_blank" rel="noopener noreferrer">
+              {link.name}
+            </a>
           </li>
         ))}
       </ul>
@@ -144,9 +241,13 @@ function PokemonDetails() {
 function App() {
   return (
     <Router>
+      <NavBar />
       <Routes>
         <Route path="/" element={<Pokedex />} />
         <Route path="/pokemon/:id" element={<PokemonDetails />} />
+        <Route path="/moves" element={<Moves />} />
+        <Route path="/move/:id" element={<MoveDetails />} />
+        <Route path="/wiki" element={<Wiki />} />
       </Routes>
     </Router>
   );
