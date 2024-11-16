@@ -32,4 +32,4 @@ function MovesPage() {
   );
 }
 
-export default MovesPXage;
+export default MovesPage;
