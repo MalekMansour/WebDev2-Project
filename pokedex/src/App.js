@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
+import PokemonDetail from "./PokemonDetail";
+import MovesPage from "./MovesPage";
 
-// Mapping of Pokémon types to background colors
 const typeColors = {
   normal: "#A8A77A",
   fire: "#EE8130",
@@ -28,14 +30,12 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPokemon, setFilteredPokemon] = useState([]);
 
-  // Fetch Pokémon data from the API
   useEffect(() => {
     const fetchPokemonData = async () => {
       try {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
         const data = await response.json();
 
-        // Fetch details for each Pokémon
         const promises = data.results.map(async (pokemon) => {
           const res = await fetch(pokemon.url);
           return res.json();
@@ -52,7 +52,6 @@ function App() {
     fetchPokemonData();
   }, []);
 
-  // Filter Pokémon based on the search term
   useEffect(() => {
     setFilteredPokemon(
       pokemonData.filter((pokemon) =>
@@ -62,36 +61,59 @@ function App() {
   }, [searchTerm, pokemonData]);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Pokédex</h1>
-        <input
-          type="text"
-          placeholder="Search Pokémon"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </header>
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <h1>Pokédex</h1>
+          <input
+            type="text"
+            placeholder="Search Pokémon"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <nav>
+            <Link to="/">Home</Link>
+            <Link to="/moves">Moves</Link>
+          </nav>
+        </header>
 
-      <div className="pokemon-grid">
-        {filteredPokemon.map((pokemon) => {
-          const mainType = pokemon.types[0]?.type?.name; // Check for type safely
-          const backgroundColor = typeColors[mainType] || "#FFFFFF"; // Default to white if type is not found
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="pokemon-grid">
+                {filteredPokemon.map((pokemon) => {
+                  const mainType = pokemon.types[0]?.type?.name;
+                  const backgroundColor = typeColors[mainType] || "#FFFFFF";
 
-          return (
-            <div
-              key={pokemon.id}
-              className="pokemon-card"
-              style={{ backgroundColor }}
-            >
-              <div className="pokemon-id">#{pokemon.id}</div>
-              <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-              <h2>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
-            </div>
-          );
-        })}
+                  return (
+                    <Link
+                      to={`/pokemon/${pokemon.id}`}
+                      key={pokemon.id}
+                      className="pokemon-card-link"
+                    >
+                      <div className="pokemon-card" style={{ backgroundColor }}>
+                        <div className="pokemon-id">#{pokemon.id}</div>
+                        <img
+                          src={pokemon.sprites.front_default}
+                          alt={pokemon.name}
+                        />
+                        <h2>
+                          {pokemon.name.charAt(0).toUpperCase() +
+                            pokemon.name.slice(1)}
+                        </h2>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            }
+          />
+          <Route path="/pokemon/:id" element={<PokemonDetail />} />
+          <Route path="/moves" element={<MovesPage />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
