@@ -1,15 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./MovesPage.css";
 
-function MovesPage() {
-  const [moves, setMoves] = useState([]);
+// Mapping of Pokémon types to background colors
+const typeColors = {
+  normal: "#A8A77A",
+  fire: "#EE8130",
+  water: "#6390F0",
+  electric: "#F7D02C",
+  grass: "#7AC74C",
+  ice: "#96D9D6",
+  fighting: "#C22E28",
+  poison: "#A33EA1",
+  ground: "#E2BF65",
+  flying: "#A98FF3",
+  psychic: "#F95587",
+  bug: "#A6B91A",
+  rock: "#B6A136",
+  ghost: "#735797",
+  dragon: "#6F35FC",
+  dark: "#705746",
+  steel: "#B7B7CE",
+  fairy: "#D685AD",
+};
 
+const MovesPage = () => {
+  const [moves, setMoves] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Fetch all moves from the API
   useEffect(() => {
     const fetchMoves = async () => {
       try {
-        const response = await fetch("https://pokeapi.co/api/v2/move?limit=100");
+        const response = await fetch("https://pokeapi.co/api/v2/move?limit=150");
         const data = await response.json();
-        setMoves(data.results);
+
+        // Fetch details for each move
+        const moveDetails = await Promise.all(
+          data.results.map(async (move) => {
+            const res = await fetch(move.url);
+            return res.json();
+          })
+        );
+
+        setMoves(moveDetails);
       } catch (error) {
         console.error("Error fetching moves:", error);
       }
@@ -18,18 +51,42 @@ function MovesPage() {
     fetchMoves();
   }, []);
 
+  // Filter moves based on the search term
+  const filteredMoves = moves.filter((move) =>
+    move.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="moves-page">
       <h1>Pokémon Moves</h1>
+      <input
+        type="text"
+        placeholder="Search Moves"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <div className="moves-grid">
-        {moves.map((move, index) => (
-          <div key={index} className="move-card">
-            <h3>{move.name}</h3>
-          </div>
-        ))}
+        {filteredMoves.map((move) => {
+          const mainType = move.type.name; // Get move type
+          const backgroundColor = typeColors[mainType] || "#ccc"; // Default to grey if type not found
+
+          return (
+            <div
+              key={move.id}
+              className="move-card"
+              style={{ backgroundColor }}
+            >
+              <h3>{move.name.charAt(0).toUpperCase() + move.name.slice(1)}</h3>
+              <p><strong>Type:</strong> {mainType.charAt(0).toUpperCase() + mainType.slice(1)}</p>
+              <p><strong>Power:</strong> {move.power || "N/A"}</p>
+              <p><strong>Accuracy:</strong> {move.accuracy || "N/A"}%</p>
+              <p><strong>PP:</strong> {move.pp}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
-}
+};
 
 export default MovesPage;
