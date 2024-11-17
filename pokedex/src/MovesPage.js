@@ -36,7 +36,6 @@ const MovesPage = () => {
         const response = await fetch("https://pokeapi.co/api/v2/move?limit=1000"); // Fetch up to 1000 moves
         const data = await response.json();
 
-        // Fetch detailed data for each move
         const moveDetails = await Promise.all(
           data.results.map(async (move) => {
             const res = await fetch(move.url);
