@@ -32,7 +32,6 @@ const MovesPage = () => {
   useEffect(() => {
     const fetchMoves = async () => {
       try {
-        // Fetch the full list of moves
         const response = await fetch("https://pokeapi.co/api/v2/move?limit=1000"); // Fetch up to 1000 moves
         const data = await response.json();
 
