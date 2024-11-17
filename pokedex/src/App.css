@@ -1,4 +1,3 @@
-/* General App Styling */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -7,7 +6,7 @@ body {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #282c34;X
   padding: 20px;
   text-align: center;
   color: white;
