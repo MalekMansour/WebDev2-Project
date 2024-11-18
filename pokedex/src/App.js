@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import PokemonDetail from "./PokemonDetail";
 import MovesPage from "./MovesPage";
+import WikisPage from "./WikisPage";
 
 const typeColors = {
   normal: "#A8A77A",
