@@ -3,9 +3,9 @@ import "./WikisPage.css";
 
 function WikisPage() {
   const wikis = [
+    { name: "Pokémon Database", url: "https://pokemondb.net/" },
     { name: "Bulbapedia", url: "https://bulbapedia.bulbagarden.net/" },
     { name: "Serebii", url: "https://www.serebii.net/" },
-    { name: "Pokémon Database", url: "https://pokemondb.net/" },
     { name: "Pokémon Wiki", url: "https://pokemon.fandom.com/" },
     { name: "Smogon", url: "https://www.smogon.com/" },
   ];
