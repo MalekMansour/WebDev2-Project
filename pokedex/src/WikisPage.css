@@ -1,0 +1,34 @@
+.wikis-page {
+    text-align: center;
+    padding: 40px;
+    background-color: #f4f4f4;
+    color: #333;
+    min-height: 100vh;
+  }
+  
+  .wikis-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #444;
+  }
+  
+  .wikis-page ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .wikis-page li {
+    margin: 15px 0;
+  }
+  
+  .wikis-page a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #1e90ff;
+    transition: color 0.3s ease;
+  }
+  
+  .wikis-page a:hover {
+    color: #ff4500;
+  }
+  
