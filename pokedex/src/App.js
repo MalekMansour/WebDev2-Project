@@ -30,6 +30,7 @@ function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPokemon, setFilteredPokemon] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);  // Dark Mode State
 
   useEffect(() => {
     const fetchPokemonData = async () => {
@@ -61,9 +62,13 @@ function App() {
     );
   }, [searchTerm, pokemonData]);
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <Router>
-      <div className="App">
+      <div className={`App ${isDarkMode ? "dark-mode" : ""}`}>
         <header className="App-header">
           <h1>Pokédex</h1>
           <input
@@ -72,6 +77,9 @@ function App() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          <button onClick={toggleDarkMode}>
+            {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          </button>
           <nav>
             <Link to="/">Home</Link>
             <Link to="/moves">Moves</Link>
@@ -113,7 +121,7 @@ function App() {
           />
           <Route path="/pokemon/:id" element={<PokemonDetail />} />
           <Route path="/moves" element={<MovesPage />} />
-          <Route path="/wikis" element={<WikisPage />} /> 
+          <Route path="/wikis" element={<WikisPage />} />
         </Routes>
       </div>
     </Router>
