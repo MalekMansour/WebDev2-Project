@@ -74,6 +74,7 @@ function App() {
           <nav>
             <Link to="/">Home</Link>
             <Link to="/moves">Moves</Link>
+            <Link to="/wikis">Wikis</Link>
           </nav>
         </header>
 
