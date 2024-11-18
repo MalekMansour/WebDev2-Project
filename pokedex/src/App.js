@@ -113,6 +113,7 @@ function App() {
           />
           <Route path="/pokemon/:id" element={<PokemonDetail />} />
           <Route path="/moves" element={<MovesPage />} />
+          <Route path="/wikis" element={<WikisPage />} /> {/* Wikis Route */}
         </Routes>
       </div>
     </Router>
