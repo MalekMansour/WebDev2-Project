@@ -54,6 +54,12 @@ body.dark-mode {
   margin: 10px;
 }
 
+.toggle-icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s;
+}
+
 .App-header button:hover {
   background-color: #555;
 }
