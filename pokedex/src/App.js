@@ -4,6 +4,8 @@ import "./App.css";
 import PokemonDetail from "./PokemonDetail";
 import MovesPage from "./MovesPage";
 import WikisPage from "./WikisPage";
+import sunIcon from "./assets/sun.png";
+import moonIcon from "./assets/moon.png";
 
 const typeColors = {
   normal: "#A8A77A",
@@ -30,7 +32,7 @@ function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPokemon, setFilteredPokemon] = useState([]);
-  const [isDarkMode, setIsDarkMode] = useState(false);  // Dark Mode State
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const fetchPokemonData = async () => {
@@ -63,12 +65,13 @@ function App() {
   }, [searchTerm, pokemonData]);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    setIsDarkMode((prevMode) => !prevMode);
+    document.body.classList.toggle("dark-mode", !isDarkMode);
   };
 
   return (
     <Router>
-      <div className={`App ${isDarkMode ? "dark-mode" : ""}`}>
+      <div className={`App ${isDarkMode ? "dark" : ""}`}>
         <header className="App-header">
           <h1>Pokédex</h1>
           <input
@@ -77,8 +80,12 @@ function App() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button onClick={toggleDarkMode}>
-            {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          <button onClick={toggleDarkMode} className="dark-mode-toggle">
+            <img
+              src={isDarkMode ? sunIcon : moonIcon}
+              alt="Toggle Dark Mode"
+              className="toggle-icon"
+            />
           </button>
           <nav>
             <Link to="/">Home</Link>
