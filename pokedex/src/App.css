@@ -47,10 +47,6 @@ body.dark-mode {
   cursor: pointer;
 }
 
-.App-header button:hover {
-  background-color: #555;
-}
-
 .dark-mode-toggle {
   background: none;
   border: none;
@@ -58,12 +54,9 @@ body.dark-mode {
   margin: 10px;
 }
 
-.toggle-icon {
-  width: 30px;
-  height: 30px;
-  transition: transform 0.3s;
+.App-header button:hover {
+  background-color: #555;
 }
-
 
 /* Pokémon Grid Styling */
 .pokemon-grid {
