@@ -7,32 +7,36 @@ import WikisPage from "./WikisPage";
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
 
+// Define type colors
 const typeColors = {
-  normal: "#A8A77A",
-  fire: "#EE8130",
-  water: "#6390F0",
-  electric: "#F7D02C",
-  grass: "#7AC74C",
-  ice: "#96D9D6",
-  fighting: "#C22E28",
-  poison: "#A33EA1",
-  ground: "#E2BF65",
-  flying: "#A98FF3",
-  psychic: "#F95587",
-  bug: "#A6B91A",
-  rock: "#B6A136",
-  ghost: "#735797",
-  dragon: "#6F35FC",
-  dark: "#705746",
-  steel: "#B7B7CE",
-  fairy: "#D685AD",
+  normal: "#A8A878",
+  fire: "#F08030",
+  water: "#6890F0",
+  electric: "#F8D030",
+  grass: "#78C850",
+  ice: "#98D8D8",
+  fighting: "#C03028",
+  poison: "#A040A0",
+  ground: "#E0C068",
+  flying: "#A890F0",
+  psychic: "#F85888",
+  bug: "#A8B820",
+  rock: "#B8A038",
+  ghost: "#705898",
+  dragon: "#7038F8",
+  dark: "#705848",
+  steel: "#B8B8D0",
+  fairy: "#EE99AC",
 };
 
 function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPokemon, setFilteredPokemon] = useState([]);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check localStorage for dark mode preference
+    return localStorage.getItem("darkMode") === "true";
+  });
 
   useEffect(() => {
     const fetchPokemonData = async () => {
@@ -64,9 +68,18 @@ function App() {
     );
   }, [searchTerm, pokemonData]);
 
+  // Apply the initial dark mode class based on localStorage
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", isDarkMode);
+  }, [isDarkMode]);
+
   const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-    document.body.classList.toggle("dark-mode", !isDarkMode);
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      // Save dark mode preference to localStorage
+      localStorage.setItem("darkMode", newMode);
+      return newMode;
+    });
   };
 
   return (
