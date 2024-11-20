@@ -40,13 +40,13 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #1e90ff;
+  background-color: #333;
   color: white;
   transition: background-color 0.3s;
 }
 
-.header button:hover {
-  background-color: #ff4500;
+.App-header button:hover {
+  background-color: #555;
 }
 
 .moves-page h1 {
