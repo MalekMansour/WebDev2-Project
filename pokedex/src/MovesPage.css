@@ -3,12 +3,23 @@
   padding: 20px;
   background-color: #f4f4f4;
   min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.moves-page.dark {
+  background-color: #333;
+  color: #f4f4f4;
 }
 
 .moves-page h1 {
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 20px;
+  transition: color 0.3s;
+}
+
+.moves-page.dark h1 {
+  color: #f4f4f4;
 }
 
 .moves-page input[type="text"] {
@@ -25,6 +36,17 @@
 }
 
 .moves-page input[type="text"]:focus {
+  border-color: #6390F0;
+  box-shadow: 0 4px 8px rgba(99, 144, 240, 0.5);
+}
+
+.moves-page.dark input[type="text"] {
+  background-color: #444;
+  color: #f4f4f4;
+  border-color: #555;
+}
+
+.moves-page.dark input[type="text"]:focus {
   border-color: #6390F0;
   box-shadow: 0 4px 8px rgba(99, 144, 240, 0.5);
 }
@@ -52,6 +74,10 @@
   opacity: 0.9;
 }
 
+.moves-page.dark .move-card {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 .pagination button {
   padding: 10px 20px;
   margin: 5px;
@@ -75,6 +101,11 @@
   height: 40px;
   animation: spin 1s linear infinite;
   margin: 20px auto;
+}
+
+.moves-page.dark .loading-spinner {
+  border: 6px solid #444;
+  border-top: 6px solid #6390F0;
 }
 
 @keyframes spin {
