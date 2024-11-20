@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MovesPage.css";
-import moonIcon from "src/assets/moon.png"; // Path to moon icon
-import sunIcon from "src/assets/sun.png";   // Path to sun icon
+import sunIcon from "./assets/sun.png";
+import moonIcon from "./assets/moon.png";
 
 const typeColors = {
   normal: "#A8A77A",
