@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./MovesPage.css";
 
-// Mapping of Pokémon types to background colors
 const typeColors = {
   normal: "#A8A77A",
   fire: "#EE8130",
@@ -27,15 +26,12 @@ const MovesPage = () => {
   const [moves, setMoves] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check localStorage for dark mode preference
-    return localStorage.getItem("darkMode") === "true";
-  });
+  const [darkMode, setDarkMode] = useState(false); // State for dark mode
 
   useEffect(() => {
     const fetchMoves = async () => {
       try {
-        const response = await fetch("https://pokeapi.co/api/v2/move?limit=1000"); // Fetch up to 1000 moves
+        const response = await fetch("https://pokeapi.co/api/v2/move?limit=1000");
         const data = await response.json();
 
         const moveDetails = await Promise.all(
@@ -56,19 +52,18 @@ const MovesPage = () => {
     fetchMoves();
   }, []);
 
-  // Filter moves based on the search term
   const filteredMoves = moves.filter((move) =>
     move.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Apply dark mode class to the body dynamically
-  useEffect(() => {
-    document.body.classList.toggle("dark-mode", isDarkMode);
-  }, [isDarkMode]);
-
   return (
-    <div className={`moves-page ${isDarkMode ? "dark" : ""}`}>
-      <h1>Pokémon Moves</h1>
+    <div className={`moves-page ${darkMode ? "dark" : ""}`}>
+      <div className="header">
+        <h1>Pokémon Moves</h1>
+        <button onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
+      </div>
       <input
         type="text"
         placeholder="Search Moves"
@@ -80,8 +75,8 @@ const MovesPage = () => {
       ) : (
         <div className="moves-grid">
           {filteredMoves.map((move) => {
-            const mainType = move.type.name; // Get move type
-            const backgroundColor = typeColors[mainType] || "#ccc"; // Default to grey if type not found
+            const mainType = move.type.name;
+            const backgroundColor = typeColors[mainType] || "#ccc";
 
             return (
               <div
@@ -90,19 +85,10 @@ const MovesPage = () => {
                 style={{ backgroundColor }}
               >
                 <h3>{move.name.charAt(0).toUpperCase() + move.name.slice(1)}</h3>
-                <p>
-                  <strong>Type:</strong>{" "}
-                  {mainType.charAt(0).toUpperCase() + mainType.slice(1)}
-                </p>
-                <p>
-                  <strong>Power:</strong> {move.power || "N/A"}
-                </p>
-                <p>
-                  <strong>Accuracy:</strong> {move.accuracy || "N/A"}%
-                </p>
-                <p>
-                  <strong>PP:</strong> {move.pp}
-                </p>
+                <p><strong>Type:</strong> {mainType.charAt(0).toUpperCase() + mainType.slice(1)}</p>
+                <p><strong>Power:</strong> {move.power || "N/A"}</p>
+                <p><strong>Accuracy:</strong> {move.accuracy || "N/A"}%</p>
+                <p><strong>PP:</strong> {move.pp}</p>
               </div>
             );
           })}
