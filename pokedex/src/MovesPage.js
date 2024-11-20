@@ -27,8 +27,11 @@ const MovesPage = () => {
   const [moves, setMoves] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check localStorage for dark mode preference
+    return localStorage.getItem("darkMode") === "true";
+  });
 
-  // Fetch all moves from the API
   useEffect(() => {
     const fetchMoves = async () => {
       try {
@@ -58,8 +61,13 @@ const MovesPage = () => {
     move.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Apply dark mode class to the body dynamically
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", isDarkMode);
+  }, [isDarkMode]);
+
   return (
-    <div className="moves-page">
+    <div className={`moves-page ${isDarkMode ? "dark" : ""}`}>
       <h1>Pokémon Moves</h1>
       <input
         type="text"
@@ -82,10 +90,19 @@ const MovesPage = () => {
                 style={{ backgroundColor }}
               >
                 <h3>{move.name.charAt(0).toUpperCase() + move.name.slice(1)}</h3>
-                <p><strong>Type:</strong> {mainType.charAt(0).toUpperCase() + mainType.slice(1)}</p>
-                <p><strong>Power:</strong> {move.power || "N/A"}</p>
-                <p><strong>Accuracy:</strong> {move.accuracy || "N/A"}%</p>
-                <p><strong>PP:</strong> {move.pp}</p>
+                <p>
+                  <strong>Type:</strong>{" "}
+                  {mainType.charAt(0).toUpperCase() + mainType.slice(1)}
+                </p>
+                <p>
+                  <strong>Power:</strong> {move.power || "N/A"}
+                </p>
+                <p>
+                  <strong>Accuracy:</strong> {move.accuracy || "N/A"}%
+                </p>
+                <p>
+                  <strong>PP:</strong> {move.pp}
+                </p>
               </div>
             );
           })}
