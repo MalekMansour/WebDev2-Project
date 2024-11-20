@@ -11,6 +11,22 @@
   color: #f4f4f4;
 }
 
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.dark-mode-toggle img {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s;
+}
+
+.dark-mode-toggle img:hover {
+  transform: scale(1.1);
+}
+
 .header {
   display: flex;
   justify-content: space-between;
