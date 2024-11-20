@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MovesPage.css";
+import moonIcon from "src/assets/moon.png"; // Path to moon icon
+import sunIcon from "src/assets/sun.png";   // Path to sun icon
 
 const typeColors = {
   normal: "#A8A77A",
@@ -60,8 +62,14 @@ const MovesPage = () => {
     <div className={`moves-page ${darkMode ? "dark" : ""}`}>
       <div className="header">
         <h1>Pokémon Moves</h1>
-        <button onClick={() => setDarkMode(!darkMode)}>
-          {darkMode ? "Light Mode" : "Dark Mode"}
+        <button
+          className="dark-mode-toggle"
+          onClick={() => setDarkMode(!darkMode)}
+        >
+          <img
+            src={darkMode ? sunIcon : moonIcon}
+            alt={darkMode ? "Light Mode" : "Dark Mode"}
+          />
         </button>
       </div>
       <input
