@@ -28,7 +28,7 @@ const MovesPage = () => {
   const [moves, setMoves] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [darkMode, setDarkMode] = useState(false); // State for dark mode
+  const [darkMode, setDarkMode] = useState(false); 
 
   useEffect(() => {
     const fetchMoves = async () => {
