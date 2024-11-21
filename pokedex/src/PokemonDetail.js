@@ -49,7 +49,7 @@ function PokemonDetail() {
     <div className="pokemon-detail">
       <div
         className="pokemon-detail-card"
-        style={{ backgroundColor: typeColors[mainType] || "#FFFFFF" }}
+        style={{ backgroundColor: typeColors[mainType] || "#fafafa" }}
       >
         <h1>{pokemon.name.toUpperCase()}</h1>
         <img src={pokemon.sprites.front_default} alt={pokemon.name} />
