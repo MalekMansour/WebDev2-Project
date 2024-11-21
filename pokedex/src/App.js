@@ -34,7 +34,6 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPokemon, setFilteredPokemon] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check localStorage for dark mode preference
     return localStorage.getItem("darkMode") === "true";
   });
 
