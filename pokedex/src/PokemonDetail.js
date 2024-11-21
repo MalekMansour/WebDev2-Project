@@ -63,10 +63,15 @@ function PokemonDetail() {
           <strong>Types:</strong>{" "}
           {pokemon.types.map((type) => type.type.name).join(", ")}
         </p>
-        <p>
-          <strong>Base Stats:</strong>{" "}
-          {pokemon.stats.map((stat) => `${stat.stat.name}: ${stat.base_stat}`).join(", ")}
-        </p>
+        <div className="stats">
+          <h3>Base Stats:</h3>
+          {pokemon.stats.map((stat) => (
+            <div key={stat.stat.name} className="stat">
+              <span>{stat.stat.name.toUpperCase()}:</span>
+              <span>{stat.base_stat}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
