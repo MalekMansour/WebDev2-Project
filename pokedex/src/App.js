@@ -68,7 +68,6 @@ function App() {
     );
   }, [searchTerm, pokemonData]);
 
-  // Apply the initial dark mode class based on localStorage
   useEffect(() => {
     document.body.classList.toggle("dark-mode", isDarkMode);
   }, [isDarkMode]);
@@ -76,7 +75,6 @@ function App() {
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => {
       const newMode = !prevMode;
-      // Save dark mode preference to localStorage
       localStorage.setItem("darkMode", newMode);
       return newMode;
     });
