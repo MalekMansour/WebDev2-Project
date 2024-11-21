@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { DarkModeProvider, DarkModeContext } from "./DarkModeContext";
 import "./App.css";
@@ -34,9 +34,7 @@ function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPokemon, setFilteredPokemon] = useState([]);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem("darkMode") === "true";
-  });
+  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     const fetchPokemonData = async () => {
@@ -68,81 +66,71 @@ function App() {
     );
   }, [searchTerm, pokemonData]);
 
-  useEffect(() => {
-    document.body.classList.toggle("dark-mode", isDarkMode);
-  }, [isDarkMode]);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => {
-      const newMode = !prevMode;
-      localStorage.setItem("darkMode", newMode);
-      return newMode;
-    });
-  };
-
   return (
-    <Router>
-      <div className={`App ${isDarkMode ? "dark" : ""}`}>
-        <header className="App-header">
-          <h1>Pokédex</h1>
-          <input
-            type="text"
-            placeholder="Search Pokémon"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button onClick={toggleDarkMode} className="dark-mode-toggle">
-            <img
-              src={isDarkMode ? sunIcon : moonIcon}
-              alt="Toggle Dark Mode"
-              className="toggle-icon"
+    <DarkModeProvider>
+      <Router>
+        <div className={`App ${isDarkMode ? "dark" : ""}`}>
+          <header className="App-header">
+            <h1>Pokédex</h1>
+            <input
+              type="text"
+              placeholder="Search Pokémon"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-          </button>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/moves">Moves</Link>
-            <Link to="/wikis">Wikis</Link>
-          </nav>
-        </header>
+            <button onClick={toggleDarkMode} className="dark-mode-toggle">
+              <img
+                src={isDarkMode ? sunIcon : moonIcon}
+                alt="Toggle Dark Mode"
+                className="toggle-icon"
+              />
+            </button>
+            <nav>
+              <Link to="/">Home</Link>
+              <Link to="/moves">Moves</Link>
+              <Link to="/wikis">Wikis</Link>
+            </nav>
+          </header>
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <div className="pokemon-grid">
-                {filteredPokemon.map((pokemon) => {
-                  const mainType = pokemon.types[0]?.type?.name;
-                  const backgroundColor = typeColors[mainType] || "#FFFFFF";
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div className="pokemon-grid">
+                  {filteredPokemon.map((pokemon) => {
+                    const mainType = pokemon.types[0]?.type?.name;
+                    const backgroundColor = typeColors[mainType] || "#FFFFFF";
 
-                  return (
-                    <Link
-                      to={`/pokemon/${pokemon.id}`}
-                      key={pokemon.id}
-                      className="pokemon-card-link"
-                    >
-                      <div className="pokemon-card" style={{ backgroundColor }}>
-                        <div className="pokemon-id">#{pokemon.id}</div>
-                        <img
-                          src={pokemon.sprites.front_default}
-                          alt={pokemon.name}
-                        />
-                        <h2>
-                          {pokemon.name.charAt(0).toUpperCase() +
-                            pokemon.name.slice(1)}
-                        </h2>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            }
-          />
-          <Route path="/pokemon/:id" element={<PokemonDetail />} />
-          <Route path="/moves" element={<MovesPage />} />
-          <Route path="/wikis" element={<WikisPage />} />
-        </Routes>
-      </div>
-    </Router>
+                    return (
+                      <Link
+                        to={`/pokemon/${pokemon.id}`}
+                        key={pokemon.id}
+                        className="pokemon-card-link"
+                      >
+                        <div className="pokemon-card" style={{ backgroundColor }}>
+                          <div className="pokemon-id">#{pokemon.id}</div>
+                          <img
+                            src={pokemon.sprites.front_default}
+                            alt={pokemon.name}
+                          />
+                          <h2>
+                            {pokemon.name.charAt(0).toUpperCase() +
+                              pokemon.name.slice(1)}
+                          </h2>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              }
+            />
+            <Route path="/pokemon/:id" element={<PokemonDetail />} />
+            <Route path="/moves" element={<MovesPage />} />
+            <Route path="/wikis" element={<WikisPage />} />
+          </Routes>
+        </div>
+      </Router>
+    </DarkModeProvider>
   );
 }
 
