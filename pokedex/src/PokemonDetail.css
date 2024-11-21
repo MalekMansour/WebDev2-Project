@@ -1,125 +1,59 @@
 .pokemon-detail {
-    text-align: center;
-    padding: 40px;
-    background-color: #fafafa;
-    color: #333;
-    min-height: 100vh;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .pokemon-detail-card {
-    display: inline-block;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 500px;
-    background: linear-gradient(135deg, #ffffff, #f1f1f1);
-    margin-top: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .pokemon-detail-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
-  }
-  
-  .pokemon-detail-card img {
-    display: block;
-    margin: 0 auto 20px;
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    border: 5px solid #ddd;
-    border-radius: 50%;
-    background-color: #fff;
-  }
-  
-  .pokemon-detail-card h2 {
-    font-size: 2.5rem;
-    color: #444;
-    margin-bottom: 10px;
-    text-transform: capitalize;
-  }
-  
-  .pokemon-detail-card p {
-    font-size: 1rem;
-    color: #555;
-    margin: 5px 0;
-  }
-  
-  .pokemon-detail-card .types {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
-  }
-  
-  .pokemon-detail-card .type {
-    padding: 8px 15px;
-    border-radius: 15px;
-    font-size: 1rem;
-    color: #fff;
-    font-weight: bold;
-    text-transform: capitalize;
-  }
-  
-  .pokemon-detail-card .details {
-    text-align: left;
-    margin-top: 20px;
-  }
-  
-  .pokemon-detail-card .details .detail {
-    font-size: 1rem;
-    color: #444;
-    margin-bottom: 8px;
-  }
-  
-  .pokemon-detail-card .stats {
-    margin-top: 20px;
-    text-align: left;
-  }
-  
-  .pokemon-detail-card .stats .stat {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 1rem;
-  }
-  
-  .pokemon-detail-card .stats .stat-bar {
-    width: 70%;
-    height: 8px;
-    border-radius: 5px;
-    background-color: #ddd;
-    overflow: hidden;
-    margin-left: 10px;
-  }
-  
-  .pokemon-detail-card .stats .stat-bar span {
-    display: block;
-    height: 100%;
-    border-radius: 5px;
-    background-color: #76c893;
-  }
-  
-  /* Type colors */
-  .type.normal { background-color: #A8A77A; }
-  .type.fire { background-color: #EE8130; }
-  .type.water { background-color: #6390F0; }
-  .type.electric { background-color: #F7D02C; }
-  .type.grass { background-color: #7AC74C; }
-  .type.ice { background-color: #96D9D6; }
-  .type.fighting { background-color: #C22E28; }
-  .type.poison { background-color: #A33EA1; }
-  .type.ground { background-color: #E2BF65; }
-  .type.flying { background-color: #A98FF3; }
-  .type.psychic { background-color: #F95587; }
-  .type.bug { background-color: #A6B91A; }
-  .type.rock { background-color: #B6A136; }
-  .type.ghost { background-color: #735797; }
-  .type.dragon { background-color: #6F35FC; }
-  .type.dark { background-color: #705746; }
-  .type.steel { background-color: #B7B7CE; }
-  .type.fairy { background-color: #D685AD; }
-  
+  text-align: center;
+  padding: 40px;
+  background-color: #fafafa;
+  color: #333;
+  min-height: 100vh;
+  font-family: "Arial", sans-serif;
+}
+
+.pokemon-detail-card {
+  display: inline-block;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 500px;
+  margin-top: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: white; /* Default text color for contrast */
+}
+
+.pokemon-detail-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.pokemon-detail-card img {
+  display: block;
+  margin: 0 auto 20px;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border: 5px solid #ddd;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.pokemon-detail-card h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.pokemon-detail-card p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.stats {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
