@@ -15,7 +15,6 @@ body.dark-mode {
   transition: background-color 0.3s, color 0.3s;
 }
 
-
 .App-header {
   background-color: #282c34;
   padding: 20px;
@@ -65,7 +64,6 @@ body.dark-mode {
   background-color: #555;
 }
 
-/* Pokémon Grid Styling */
 .pokemon-grid {
   display: flex;
   flex-wrap: wrap;
@@ -74,7 +72,6 @@ body.dark-mode {
   padding: 20px;
 }
 
-/* Pokémon Card Styling */
 .pokemon-card {
   background-color: #fff;
   border-radius: 10px;
