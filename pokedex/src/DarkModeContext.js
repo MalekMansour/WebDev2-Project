@@ -12,7 +12,9 @@ export const DarkModeProvider = ({ children }) => {
     localStorage.setItem("darkMode", isDarkMode);
   }, [isDarkMode]);
 
-  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
+  const toggleDarkMode = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
 
   return (
     <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
