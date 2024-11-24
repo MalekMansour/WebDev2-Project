@@ -7,7 +7,6 @@ import WikisPage from "./WikisPage";
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
 
-// Define type colors for Pokemon
 const typeColors = {
   normal: "#A8A878",
   fire: "#F08030",
@@ -37,7 +36,6 @@ function App() {
     return localStorage.getItem("darkMode") === "true";
   });
 
-  // Fetch Pokémon data on mount
   useEffect(() => {
     const fetchPokemonData = async () => {
       try {
@@ -60,7 +58,6 @@ function App() {
     fetchPokemonData();
   }, []);
 
-  // Filter Pokémon data based on search term
   useEffect(() => {
     setFilteredPokemon(
       pokemonData.filter((pokemon) =>
@@ -69,12 +66,10 @@ function App() {
     );
   }, [searchTerm, pokemonData]);
 
-  // Update body class when dark mode changes
   useEffect(() => {
     document.body.classList.toggle("dark-mode", isDarkMode);
   }, [isDarkMode]);
 
-  // Toggle dark mode and save preference to localStorage
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => {
       const newMode = !prevMode;
@@ -112,7 +107,7 @@ function App() {
           <Route
             path="/"
             element={
-              <div className="pokemon-grid">
+              <div className={`pokemon-grid ${isDarkMode ? "dark" : ""}`}>
                 {filteredPokemon.map((pokemon) => {
                   const mainType = pokemon.types[0]?.type?.name;
                   const backgroundColor = typeColors[mainType] || "#FFFFFF";
@@ -140,9 +135,14 @@ function App() {
               </div>
             }
           />
-          <Route path="/pokemon/:id" element={<PokemonDetail />} />
-          <Route path="/moves" element={<MovesPage />} />
-          <Route path="/wikis" element={<WikisPage />} />
+          <Route
+            path="/moves"
+            element={<MovesPage isDarkMode={isDarkMode} />}
+          />
+          <Route
+            path="/wikis"
+            element={<WikisPage isDarkMode={isDarkMode} />}
+          />
         </Routes>
       </div>
     </Router>
