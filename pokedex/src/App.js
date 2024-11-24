@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { DarkModeProvider, DarkModeContext } from "./DarkModeContext";
 import "./App.css";
 import PokemonDetail from "./PokemonDetail";
 import MovesPage from "./MovesPage";
@@ -7,6 +8,7 @@ import WikisPage from "./WikisPage";
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
 
+// Define type colors
 const typeColors = {
   normal: "#A8A878",
   fire: "#F08030",
@@ -92,7 +94,7 @@ function App() {
           <button onClick={toggleDarkMode} className="dark-mode-toggle">
             <img
               src={isDarkMode ? sunIcon : moonIcon}
-              alt={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              alt="Toggle Dark Mode"
               className="toggle-icon"
             />
           </button>
@@ -107,7 +109,7 @@ function App() {
           <Route
             path="/"
             element={
-              <div className={`pokemon-grid ${isDarkMode ? "dark" : ""}`}>
+              <div className="pokemon-grid">
                 {filteredPokemon.map((pokemon) => {
                   const mainType = pokemon.types[0]?.type?.name;
                   const backgroundColor = typeColors[mainType] || "#FFFFFF";
@@ -135,14 +137,9 @@ function App() {
               </div>
             }
           />
-          <Route
-            path="/moves"
-            element={<MovesPage isDarkMode={isDarkMode} />}
-          />
-          <Route
-            path="/wikis"
-            element={<WikisPage isDarkMode={isDarkMode} />}
-          />
+          <Route path="/pokemon/:id" element={<PokemonDetail />} />
+          <Route path="/moves" element={<MovesPage />} />
+          <Route path="/wikis" element={<WikisPage />} />
         </Routes>
       </div>
     </Router>
