@@ -1,4 +1,2 @@
-# WebDev2-Project
-Pokedex
-Malek Mansour
- This is the Project of Web Dev 2
+For this Project, I will be making a Pokedex (From Pokemon) using the POKEAPI.
+Author: Malek Mansour
