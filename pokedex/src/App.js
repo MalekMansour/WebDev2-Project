@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { DarkModeProvider, DarkModeContext } from "./DarkModeContext";
 import "./App.css";
 import PokemonDetail from "./PokemonDetail";
 import MovesPage from "./MovesPage";
@@ -8,7 +7,7 @@ import WikisPage from "./WikisPage";
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
 
-// Define type colors
+// Define type colors for Pokemon
 const typeColors = {
   normal: "#A8A878",
   fire: "#F08030",
@@ -38,6 +37,7 @@ function App() {
     return localStorage.getItem("darkMode") === "true";
   });
 
+  // Fetch Pokémon data on mount
   useEffect(() => {
     const fetchPokemonData = async () => {
       try {
@@ -60,6 +60,7 @@ function App() {
     fetchPokemonData();
   }, []);
 
+  // Filter Pokémon data based on search term
   useEffect(() => {
     setFilteredPokemon(
       pokemonData.filter((pokemon) =>
@@ -68,10 +69,12 @@ function App() {
     );
   }, [searchTerm, pokemonData]);
 
+  // Update body class when dark mode changes
   useEffect(() => {
     document.body.classList.toggle("dark-mode", isDarkMode);
   }, [isDarkMode]);
 
+  // Toggle dark mode and save preference to localStorage
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => {
       const newMode = !prevMode;
@@ -94,7 +97,7 @@ function App() {
           <button onClick={toggleDarkMode} className="dark-mode-toggle">
             <img
               src={isDarkMode ? sunIcon : moonIcon}
-              alt="Toggle Dark Mode"
+              alt={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
               className="toggle-icon"
             />
           </button>
