@@ -6,3 +6,4 @@ Author: Malek Mansour
 ## Functions:
 - View all Pokemons
 - View all Pokemon Moves
+-View Pokemon Wikis
