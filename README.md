@@ -1,12 +1,7 @@
-# Pokedex Project (WebDev2 Project)
+# Pokedex Project
 
-For this Project, I will be making a Pokedex (From Pokemon) using the POKEAPI.
-Author: Malek Mansour
+A feature-rich Pokedex application that allows users to explore Pokémon data using the [POKEAPI](https://pokeapi.co/). This project was created as part of the WebDev2 course to showcase proficiency in React, API integration, and user interface design. 
 
-## Functions:
-- View all Pokemons
-    - Search Pokemon By Name
-    -View Pokemon Details
-- View all Pokemon Moves
--View Pokemon Wikis
--Switch from Light Mode to Dark Mode
+## Author
+**Malek Mansour**
+
