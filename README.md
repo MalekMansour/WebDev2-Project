@@ -9,3 +9,4 @@ Author: Malek Mansour
     -View Pokemon Details
 - View all Pokemon Moves
 -View Pokemon Wikis
+-Switch from Light Mode to Dark Mode
