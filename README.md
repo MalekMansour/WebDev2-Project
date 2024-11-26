@@ -6,5 +6,6 @@ Author: Malek Mansour
 ## Functions:
 - View all Pokemons
     - Search Pokemon By Name
+    -View Pokemon Details
 - View all Pokemon Moves
 -View Pokemon Wikis
