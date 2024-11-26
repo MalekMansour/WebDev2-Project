@@ -31,3 +31,12 @@ A feature-rich Pokedex application that allows users to explore Pokémon data us
 - Switch between Light Mode and Dark Mode for a personalized browsing experience.
 
 ---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React.js
+- **API**: [POKEAPI](https://pokeapi.co/)
+- **Styling**: CSS (with Dark Mode Support)
+- **Icons**: Custom icons for toggling Light/Dark Mode
+
+---
