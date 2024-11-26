@@ -3,4 +3,5 @@
 For this Project, I will be making a Pokedex (From Pokemon) using the POKEAPI.
 Author: Malek Mansour
 
-111
+## Functions:
+- View all Pokemons
