@@ -36,7 +36,7 @@ A Pokedex application that allows users to explore Pokémon data using the [POKE
 
 - **Frontend**: React.js
 - **API**: [POKEAPI](https://pokeapi.co/)
-- **Styling**: CSS (with Dark Mode Support)
+- **Styling**: CSS 
 - **Icons**: Custom icons for toggling Light/Dark Mode
 
 ---
