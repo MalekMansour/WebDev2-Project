@@ -38,6 +38,7 @@ function App() {
     return localStorage.getItem("darkMode") === "true";
   });
 
+  // Fetching the PokeAPI and importing all 1025 current pokemons
   useEffect(() => {
     const fetchPokemonData = async () => {
       try {
