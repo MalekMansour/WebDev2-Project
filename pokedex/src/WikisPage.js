@@ -4,7 +4,7 @@ import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
 
 function WikisPage() {
-  const [darkMode, setDarkMode] = useState(false); // Dark mode state
+  const [darkMode, setDarkMode] = useState(false);
   const wikis = [
     { name: "Pokémon Database", url: "https://pokemondb.net/" },
     { name: "Pokémon Wiki", url: "https://pokemon.fandom.com/" },
