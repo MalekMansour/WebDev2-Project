@@ -30,6 +30,7 @@ const MovesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(false); 
 
+  // Fetch the PokeAPI
   useEffect(() => {
     const fetchMoves = async () => {
       try {
