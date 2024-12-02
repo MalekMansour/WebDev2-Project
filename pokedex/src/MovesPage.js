@@ -30,7 +30,7 @@ const MovesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(false); 
 
-  // Fetch the PokeAPI
+  // Fetch the PokeAPI and import all the pokemon moves
   useEffect(() => {
     const fetchMoves = async () => {
       try {
