@@ -6,6 +6,7 @@ import "./App.css";
 import PokemonDetail from "./PokemonDetail";
 import MovesPage from "./MovesPage";
 import WikisPage from "./WikisPage";
+import LoginPage from "./LoginPage"; 
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
 const typeColors = {
