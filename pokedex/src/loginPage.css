@@ -1,72 +1,71 @@
 /* General page styling */
 .login-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: linear-gradient(to bottom, #f5f7fa, #d6e6f2);
-    font-family: 'Arial', sans-serif;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Title styling */
-  .login-page h1 {
-    font-size: 3rem;
-    color: #ffcc00;
-    text-shadow: 2px 2px #3b4cca;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  /* Login button styling */
-  .login-button {
-    font-size: 1.2rem;
-    padding: 10px 20px;
-    background-color: #3b4cca;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .login-button:hover {
-    background-color: #2a36b1;
-    transform: scale(1.05);
-  }
-  
-  /* Pokémon images */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, #f5f7fa, #d6e6f2);
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Title styling */
+.login-page h1 {
+  font-size: 3rem;
+  color: #ffcc00;
+  text-shadow: 2px 2px #3b4cca;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Login button styling */
+.login-button {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background-color: #3b4cca;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #2a36b1;
+  transform: scale(1.05);
+}
+
+/* Pokémon images */
+.pokemon-image-left,
+.pokemon-image-right {
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  opacity: 0.8;
+}
+
+.pokemon-image-left {
+  left: 10px;
+}
+
+.pokemon-image-right {
+  right: 10px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
   .pokemon-image-left,
   .pokemon-image-right {
-    position: absolute;
-    bottom: 0;
-    width: 150px;
-    opacity: 0.8;
-  }
-  
-  .pokemon-image-left {
-    left: 10px;
-  }
-  
-  .pokemon-image-right {
-    right: 10px;
-  }
-  
-  /* Responsive design for smaller screens */
-  @media (max-width: 768px) {
-    .pokemon-image-left,
-    .pokemon-image-right {
       width: 100px;
-    }
-  
-    .login-page h1 {
-      font-size: 2.5rem;
-    }
-  
-    .login-button {
-      font-size: 1rem;
-    }
   }
-  
+
+  .login-page h1 {
+      font-size: 2.5rem;
+  }
+
+  .login-button {
+      font-size: 1rem;
+  }
+}
