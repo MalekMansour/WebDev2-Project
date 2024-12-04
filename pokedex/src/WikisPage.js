@@ -3,7 +3,7 @@ import "./WikisPage.css";
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
 
-// Importing some basic Pokemon Wikis
+// Importing some Pokemon Wikis
 function WikisPage() {
   const [darkMode, setDarkMode] = useState(false);
   const wikis = [
