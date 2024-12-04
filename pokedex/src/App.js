@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { auth, provider, signInWithPopup, signOut } from "./firebaseConfig";
+import firebaseApp from "./firebase/firebaseConfig";
+import { getAuth } from "firebase/auth"; // Example usage
 import "./App.css";
 import PokemonDetail from "./PokemonDetail";
 import MovesPage from "./MovesPage";
