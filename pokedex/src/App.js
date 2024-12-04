@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { DarkModeProvider, DarkModeContext } from "./DarkModeContext";
+import { auth, provider, signInWithPopup, signOut } from "./firebaseConfig";
 import "./App.css";
 import PokemonDetail from "./PokemonDetail";
 import MovesPage from "./MovesPage";
@@ -8,7 +8,6 @@ import WikisPage from "./WikisPage";
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
 
-// Define type colors
 const typeColors = {
   normal: "#A8A878",
   fire: "#F08030",
@@ -37,9 +36,24 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return localStorage.getItem("darkMode") === "true";
   });
+  const [user, setUser] = useState(null);
 
-  // Fetching the PokeAPI and importing all 1025 current pokemons
+  const handleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      setUser(result.user);
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
+
+  const handleLogout = () => {
+    signOut(auth).then(() => setUser(null));
+  };
+
   useEffect(() => {
+    if (!user) return;
+
     const fetchPokemonData = async () => {
       try {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1025");
@@ -59,7 +73,7 @@ function App() {
     };
 
     fetchPokemonData();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     setFilteredPokemon(
@@ -81,6 +95,17 @@ function App() {
     });
   };
 
+  if (!user) {
+    return (
+      <div className="login-screen">
+        <h1>Welcome to Pokédex</h1>
+        <button onClick={handleLogin} className="login-button">
+          Sign in with Google
+        </button>
+      </div>
+    );
+  }
+
   return (
     <Router>
       <div className={`App ${isDarkMode ? "dark" : ""}`}>
@@ -98,6 +123,9 @@ function App() {
               alt="Toggle Dark Mode"
               className="toggle-icon"
             />
+          </button>
+          <button onClick={handleLogout} className="logout-button">
+            Logout
           </button>
           <nav>
             <Link to="/">Home</Link>
