@@ -8,6 +8,8 @@ import MovesPage from "./MovesPage";
 import WikisPage from "./WikisPage";
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
+import pikachuIcon from "./assets/pikachu.png";  // Pikachu image
+import bulbasaurIcon from "./assets/bulbasaur.png";  // Bulbasaur image
 
 const typeColors = {
   normal: "#A8A878",
@@ -103,17 +105,9 @@ function App() {
         <button onClick={handleLogin} className="login-button">
           Sign in with Google
         </button>
-        <div className="theme-toggle">
-          <button onClick={toggleDarkMode} className="dark-mode-toggle">
-            <img
-              src={isDarkMode ? sunIcon : moonIcon}
-              alt="Toggle Dark Mode"
-              className="toggle-icon"
-            />
-          </button>
-        </div>
-        <img src="./assets/pikachu.png" alt="Left Pokémon" className="pokemon-image-left" />
-        <img src="./assets/bulbasaur.png" alt="Right Pokémon" className="pokemon-image-right" />
+        {/* Only Pikachu and Bulbasaur images for login */}
+        <img src={pikachuIcon} alt="Pikachu" className="pokemon-image-left" />
+        <img src={bulbasaurIcon} alt="Bulbasaur" className="pokemon-image-right" />
       </div>
     );
   }
