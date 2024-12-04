@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { auth, provider } from "./firebase/firebaseConfig";
 import { signInWithPopup, signOut } from "firebase/auth";
+import "./App.css";  
 import "./loginPage.css";  
 import PokemonDetail from "./PokemonDetail";
 import MovesPage from "./MovesPage";
 import WikisPage from "./WikisPage";
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
-import pikachuIcon from "./assets/pikachu.png";  // Pikachu image
-import bulbasaurIcon from "./assets/bulbasaur.png";  // Bulbasaur image
+import pikachuIcon from "./assets/pikachu.png";  
+import bulbasaurIcon from "./assets/bulbasaur.png";  
 
 const typeColors = {
   normal: "#A8A878",
@@ -105,7 +106,7 @@ function App() {
         <button onClick={handleLogin} className="login-button">
           Sign in with Google
         </button>
-        <img src={pikachuIcon} alt="Pikachu" className="pokemon-image-left" />
+X        <img src={pikachuIcon} alt="Pikachu" className="pokemon-image-left" />
         <img src={bulbasaurIcon} alt="Bulbasaur" className="pokemon-image-right" />
       </div>
     );
