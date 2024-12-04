@@ -42,3 +42,4 @@ A Pokedex application that allows users to explore Pokémon data using the [POKE
 ---
 
 ## Firebase
+Firebase will be used for Authentification in this application 
