@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import firebaseApp from "./firebase/firebaseConfig";
-import { getAuth } from "firebase/auth"; // Example usage
+import { auth, provider } from "./firebase/firebaseConfig";
+import { signInWithPopup, signOut } from "firebase/auth";
 import "./App.css";
 import PokemonDetail from "./PokemonDetail";
 import MovesPage from "./MovesPage";
 import WikisPage from "./WikisPage";
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
-
 const typeColors = {
   normal: "#A8A878",
   fire: "#F08030",
@@ -29,6 +28,7 @@ const typeColors = {
   steel: "#B8B8D0",
   fairy: "#EE99AC",
 };
+
 
 function App() {
   const [pokemonData, setPokemonData] = useState([]);
