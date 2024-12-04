@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(to bottom, #f5f7fa, #d6e6f2);
+  background: linear-gradient(to bottom, #171717, #444444);
   font-family: 'Arial', sans-serif;
   position: relative;
   overflow: hidden;
@@ -54,7 +54,6 @@
   right: 10px;
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .pokemon-image-left,
   .pokemon-image-right {
