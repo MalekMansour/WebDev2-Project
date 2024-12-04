@@ -47,7 +47,7 @@ function App() {
       console.error("Error during login:", error);
     }
   };
-
+  
   const handleLogout = () => {
     signOut(auth).then(() => setUser(null));
   };
