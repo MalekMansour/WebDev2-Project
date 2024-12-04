@@ -29,7 +29,6 @@ const typeColors = {
   fairy: "#EE99AC",
 };
 
-
 function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
