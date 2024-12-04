@@ -1,22 +1,20 @@
 import React from "react";
 import { useAuth } from "./AuthContext";
-import "./LoginPage.css";
-import pikachu from "./assets/pikachu.png";
-import bulbasaur from "./assets/bulbasaur.png";
+import "./loginPage.css";
 
-function LoginPage() {
+const LoginPage = () => {
   const { signInWithGoogle } = useAuth();
 
   return (
     <div className="login-page">
-      <h1>Welcome to the Pokédex</h1>
+      <h1>Welcome to Pokédex</h1>
       <button onClick={signInWithGoogle} className="login-button">
         Sign in with Google
       </button>
-      <img src={pikachu} alt="Pikachu" className="pokemon-image-left" />
-      <img src={bulbasaur} alt="Bulbasaur" className="pokemon-image-right" />
+      <img src="/assets/pokemon-left.png" alt="Left Pokémon" className="pokemon-image-left" />
+      <img src="/assets/pokemon-right.png" alt="Right Pokémon" className="pokemon-image-right" />
     </div>
   );
-}
+};
 
 export default LoginPage;
