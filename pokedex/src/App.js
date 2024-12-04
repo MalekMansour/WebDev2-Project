@@ -105,7 +105,6 @@ function App() {
         <button onClick={handleLogin} className="login-button">
           Sign in with Google
         </button>
-        {/* Only Pikachu and Bulbasaur images for login */}
         <img src={pikachuIcon} alt="Pikachu" className="pokemon-image-left" />
         <img src={bulbasaurIcon} alt="Bulbasaur" className="pokemon-image-right" />
       </div>
