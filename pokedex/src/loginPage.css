@@ -42,8 +42,9 @@
 .pokemon-image-right {
   position: absolute;
   bottom: 0;
-  width: 150px;
+  width: 350px;
   opacity: 0.8;
+  margin-bottom: 20%
 }
 
 .pokemon-image-left {
