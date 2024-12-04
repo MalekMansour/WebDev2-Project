@@ -40,3 +40,5 @@ A Pokedex application that allows users to explore Pokémon data using the [POKE
 - **Icons**: Custom icons for toggling Light/Dark Mode
 
 ---
+
+## Firebase
