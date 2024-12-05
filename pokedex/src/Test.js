@@ -1,3 +1,5 @@
+// A TESTING FILE FOR APP.JS (IGNORE THIS)
+
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { DarkModeProvider, DarkModeContext } from "./DarkModeContext";
@@ -8,7 +10,6 @@ import WikisPage from "./WikisPage";
 import sunIcon from "./assets/sun.png";
 import moonIcon from "./assets/moon.png";
 
-// Define type colors
 const typeColors = {
   normal: "#A8A878",
   fire: "#F08030",
