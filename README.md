@@ -29,7 +29,6 @@ A Pokedex application that allows users to explore Pokémon data using the [POKE
 
 ### 🔐 User Authentication
 - **Sign In with Google**: Log in securely using your Google account.
-- **Personalized Pokémon List**: Access Pokémon data tailored to authenticated users.
 
 ### 🌙 Light/Dark Mode
 - Switch between Light Mode and Dark Mode for a personalized browsing experience.
