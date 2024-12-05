@@ -1,4 +1,3 @@
-/* General page styling */
 .login-page {
   display: flex;
   flex-direction: column;
@@ -11,7 +10,6 @@
   overflow: hidden;
 }
 
-/* Title styling */
 .login-page h1 {
   font-size: 3rem;
   color: #ffcc00;
@@ -20,7 +18,6 @@
   text-align: center;
 }
 
-/* Login button styling */
 .login-button {
   font-size: 1.2rem;
   padding: 10px 20px;
@@ -37,7 +34,6 @@
   transform: scale(1.05);
 }
 
-/* Pokémon images */
 .pokemon-image-left,
 .pokemon-image-right {
   position: absolute;
