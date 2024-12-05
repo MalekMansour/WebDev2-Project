@@ -58,15 +58,10 @@ Browse through the complete list of Pokémon fetched dynamically from the POKEAP
 ![Pokémon List](./screenshots/pokemon_list.png)
 
 ### 3. Pokémon Details
-Detailed information about a selected Pokémon, including stats, types, abilities, and sprites.
-
 ![Pokémon Details](./screenshots/pokemon_details.png)
 
 ### 4. Move Explorer
-Explore Pokémon moves with a search bar to find moves by name.
-
 ![Move Explorer](./screenshots/move_explorer.png)
 
 ### 5. Wikis
-
 ![Dark Mode](./screenshots/wikis.png)
