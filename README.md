@@ -48,13 +48,9 @@ A Pokedex application that allows users to explore Pokémon data using the [POKE
 ## 🖼️ Screenshots
 
 ### 1. Login Page
-
-
 ![Login Page](./screenshots/login_page.png)
 
 ### 2. Pokémon List
-Browse through the complete list of Pokémon fetched dynamically from the POKEAPI.
-
 ![Pokémon List](./screenshots/pokemon_list.png)
 
 ### 3. Pokémon Details
