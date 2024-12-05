@@ -27,6 +27,10 @@ A Pokedex application that allows users to explore Pokémon data using the [POKE
   - [Serebii](https://www.serebii.net/)
   - [Smogon](https://www.smogon.com/)
 
+### 🔐 User Authentication
+- **Sign In with Google**: Log in securely using your Google account.
+- **Personalized Pokémon List**: Access Pokémon data tailored to authenticated users.
+
 ### 🌙 Light/Dark Mode
 - Switch between Light Mode and Dark Mode for a personalized browsing experience.
 
@@ -41,5 +45,3 @@ A Pokedex application that allows users to explore Pokémon data using the [POKE
 
 ---
 
-## Firebase
-Firebase will be used for Authentification in this application 
