@@ -61,3 +61,5 @@ A Pokedex application that allows users to explore Pokémon data using the [POKE
 
 ### 5. Wikis
 ![Dark Mode](./screenshots/wikis.png)
+
+---
